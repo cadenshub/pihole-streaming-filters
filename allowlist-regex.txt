@@ -1,0 +1,2 @@
+^g[^.]+-vod-us-cmaf-prd-mc\.cdn\.peacocktv\.com$
+^[^.]+\.cws\.conviva\.com$

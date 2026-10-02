@@ -1,0 +1,9 @@
+^[^.]+\.(sr|sc)\.roku\.com$
+^(([^.]+\.)*(logs|ads|web|prod\.mobile|cti|voice)(\.[^.]+)*\.)roku\.com$
+^(([^.]+\.)*[^.]*(amarillo|amoeba|austin|benjamin|bryan|camden|cooper|copper|digdug|external|giga|gilbert|griffin|hereford|lb|liberty|littlefield|longview|madison|marlin|midland|paolo|richmond|rollingwood|scribe|sugarland|tyler|victoria|windsor)[^.]*(\.[^.]+)*\.)roku\.com$
+^((captive|cloudservices|wwwimg)\.)roku\.com$
+^((bif|microsites|traces|track|userdata)\.sr\.)roku\.com$
+^([^.]+\.)*ravm\.tv$
+^([^.]+\.)*roku([^.]+\.)*\.admeasurement([^.]+\.)*\.com$
+^g[^.]+-vod-us-cmaf-prd-[^.]+\.cdn\.peacocktv\.com$
+^([^.]+\.)*disneyadvertising\.com$

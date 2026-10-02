@@ -1,0 +1,12 @@
+lat-services.api.data.roku.com
+roku.admeasurement.com
+mt.ssai.peacocktv.com
+imasdk.googleapis.com
+enduser.adsrvr.org
+cdn.privacy.paramount.com
+www.googletagmanager.com
+pagead2.googlesyndication.com
+availability-fastly.syncbak-mediastore-cedexis.cbsaavideo.com
+cbsi.demdex.net
+vod-gcs-qwilt.cbsaavideo.com
+vod-gcs-google.cbsaavideo.com
