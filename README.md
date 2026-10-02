@@ -1,12 +1,12 @@
 # Pi-hole streaming filters
 
-Service and device rules extracted from the supplied `streaming-whitelist (1).txt` and `streaming-blacklist (1).txt`. Those files attribute the suggestions to a community post **last updated July 10, 2025**; no original post URL was supplied. This date describes the source, not a recent playback test.
+Service and device rules extracted from the supplied `streaming-whitelist (1).txt` and `streaming-blacklist (1).txt`, with warnings checked against the original community post subsequently pasted by the user. The rule source was **last updated July 10, 2025**, with Peacock identified as the last updated platform. The July 24, 2025 notice is an author status update, not a newer rule revision. No original post URL was supplied. These dates describe the source, not a recent playback test.
 
 DNS blocking cannot reliably remove streaming ads. Ads and video may share hosts, and server-side ad insertion can make DNS rules ineffective or break playback. These are candidates to test on your own devices, not a verified compatibility list.
 
 ## Files and downloads
 
-Each rule file is UTF-8 plain text with one entry per line, without headings, comments, or blank lines. Original rule order and patterns are preserved; all literal dots in the supplied regexes were already escaped.
+Each rule file is UTF-8 plain text with one entry per line, without headings, comments, or blank lines. Order within each rule type follows the supplied extracted files. Those files already corrected the original post's extra closing parenthesis in the Roku named-subdomains regex, escaped literal dots, and anchored the Peacock regexes to complete domains. The original post repeats `www.googletagmanager.com`; the rule file contains it once. These syntax corrections and deduplication preserve the intended domain selections.
 
 | File | Pi-hole type | Entries | Download |
 | --- | --- | ---: | --- |
@@ -20,9 +20,9 @@ Each rule file is UTF-8 plain text with one entry per line, without headings, co
 
 ## Service and device warnings
 
-- **Roku / The Roku Channel:** Do not enable `^[^.]+\.(sr|sc)\.roku\.com$` if you use The Roku Channel; it blocks Channel subdomains. Channel allow entries below are optional and needed only for Channel users. `tis.cti.roku.com` and `ls.cti.roku.com` are troubleshooting suggestions that still need testing. The Roku admeasurement regex is labeled “overkill” in the source.
-- **Peacock playback:** The source says “Use this for now” for `mt.ssai.peacocktv.com`. The broader Peacock VOD deny regex also matches the `-mc` playback hosts covered by the Peacock allow regex. Keep that allow regex enabled for the same client groups when using the deny regex; playback may still fail and needs testing. The source mentions a MediaTailor host with a random ID and region, but supplies no concrete rule. No guessed MediaTailor wildcard was added: inspect the Query Log for your own device first.
-- **Paramount+ compatibility:** The supplied deny entries are ad/tracking candidates. The source's general warning says rules can break playback or other devices. Do not assume compatibility across Paramount+ apps, devices, or other services sharing these hosts; test sign-in, live video, VOD, and other affected apps, and disable problematic rules. The provided files do not contain a more detailed Paramount+ compatibility statement.
+- **Roku / The Roku Channel:** Do not enable `^[^.]+\.(sr|sc)\.roku\.com$` if you use The Roku Channel; it blocks Channel subdomains. Channel allow entries below are optional and needed only for Channel users. The source says the roles of `navigation.sr.roku.com` and `images-svc.sr.roku.com` are unknown and still being tested. `tis.cti.roku.com` and `ls.cti.roku.com` are troubleshooting suggestions that still need testing. The Roku admeasurement regex is labeled “overkill” in the source.
+- **Peacock playback:** The author reports that the July 4, 2025 settings mostly suppressed ads on their setup but caused videos to restart from the beginning instead of resuming. This is a source report, not a verified outcome for these files. The source says “Use this for now” for `mt.ssai.peacocktv.com`. The broader Peacock VOD deny regex also matches the `-mc` playback hosts covered by the Peacock allow regex. Keep that allow regex enabled for the same client groups when using the deny regex; playback may still fail and needs testing. The post also reports that someone experienced Amazon Echo problems, explicitly marked as needing confirmation. Several Peacock allow domains are marked “under consideration.” The source names one regional MediaTailor host but says its random ID may change; no generalized MediaTailor rule was supplied and no guessed wildcard was added. Inspect the Query Log for your own device first.
+- **Paramount+ compatibility:** The author reports stability on Roku for a period, but unstable browser behavior and frequent changes to content/ad delivery. The post explicitly warns that moderate to aggressive blocking can prevent Paramount+ from working, even on an ad-free subscription. In particular, the deny candidate `imasdk.googleapis.com` is marked as possibly needed for loading on a PC and requiring testing. Do not assume compatibility across Paramount+ apps, devices, or other services sharing these hosts; test sign-in, live video, VOD, and other affected apps, and disable problematic rules. Use Query Log to identify the hosts needed by your own device. The author also claims that enabling DNSSEC with Unbound blocks browser access while Roku still works; this claim has not been verified here and is not an instruction to disable DNSSEC.
 - **Disney+:** The `disneyadvertising.com` regex is not thoroughly tested; treat it as experimental. Its presence does not establish that it removes Disney+ ads or preserves playback.
 
 The files include all supplied candidates, including optional and experimental entries. Review the service labels before importing, and omit rules that do not apply to your devices.
@@ -43,7 +43,7 @@ By default it imports 63 entries, omitting the Roku Channel-wide `sr/sc` deny re
 
 The importer initially uses the Default group; change assignments in Domains if these rules should apply only to selected streaming devices. Inspect CLI output for rejected entries and test playback afterward. This is an import, not a recurring subscription or automatic update service. Importing an entry already present may report it as existing; review its current configuration rather than assuming the importer changed it.
 
-These files are **domain allow/deny entries, not Adlists**. Do not add their URLs under Lists/Adlists or expect gravity updates to import them.
+This setup imports all four files as their corresponding **domain allow/deny entry types**. Do not add the repository URL or the mixed collection as an Adlist: a list subscription does not import these regex entries. Pi-hole v6 separately supports hosted exact-domain allow/block subscriptions, but that alternative does not install the complete collection through one URL.
 
 ### Web interface
 
