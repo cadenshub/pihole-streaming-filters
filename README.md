@@ -29,6 +29,20 @@ The files include all supplied candidates, including optional and experimental e
 
 ## Add entries in Pi-hole v6
 
+### One-command import
+
+On the Pi-hole v6 host (or inside its Pi-hole container), run:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/cadenshub/pihole-streaming-filters/main/install.sh -o /tmp/pihole-streaming-install.sh && bash /tmp/pihole-streaming-install.sh
+```
+
+The [importer](install.sh) downloads all four files, checks their format, and compiles regexes using your actual `pihole-FTL` engine before adding entries through the CLI. It adds allow entries before deny entries. The original four rule files remain complete and unchanged.
+
+By default it imports 63 entries, omitting the Roku Channel-wide `sr/sc` deny regex, the two untested `tis.cti.roku.com` / `ls.cti.roku.com` troubleshooting allows, and the untested Disney regex. To deliberately include all 67 candidates, run the saved script with `bash /tmp/pihole-streaming-install.sh --include-optional`. Read the service warnings first. Other Roku, Peacock, and Paramount+ entries may still affect playback.
+
+The importer initially uses the Default group; change assignments in Domains if these rules should apply only to selected streaming devices. Inspect CLI output for rejected entries and test playback afterward. This is an import, not a recurring subscription or automatic update service. Importing an entry already present may report it as existing; review its current configuration rather than assuming the importer changed it.
+
 These files are **domain allow/deny entries, not Adlists**. Do not add their URLs under Lists/Adlists or expect gravity updates to import them.
 
 ### Web interface
